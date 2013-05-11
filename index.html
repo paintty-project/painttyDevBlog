@@ -3,90 +3,80 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>Paintty-project Developer Blog by paintty-project</title>
+    <title>客户端的选择 by paintty-project</title>
   </head>
 
   <body>
-    <a id="forkme_banner" href="https://github.com/paintty-project">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Paintty-project Developer Blog</h1>
-            <h2>Development Blog for project paintty.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <div id="no-downloads">
-        <span class="inner">
-        </span>
+    <header>
+      <div class="inner">
+        <h1>客户端的选择</h1>
+        <h2>Development Blog for project paintty.</h2>
+        <a href="https://github.com/paintty-project" class="button"><small>Follow me on</small>GitHub</a>
       </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>客户端的选择</h1>
+
+<p>其实从没想过paintty这个项目能做到现在这个程度。茶绘君本身最初只是我做给朋友的一个小玩具，和生日礼物差不多。后来越来越多的朋友们开始使用茶绘君，paintty项目也就一直做下来了。</p>
+
+<p>这个小博客的本意呢，就是把开发茶绘君以及茶绘娘等一系列软件的过程记录下来，作为自己开发的一点回顾。对程序开发有兴趣的朋友也可以来看看，只不过这其中可能会涉及一些计算机相关的知识，我不会详细展开，大家需要自己借助互联网来了解了。</p>
+
+<p>今天天气很好，我想先说说茶绘项目客户端的一些概况。</p>
+
+<p>茶绘君的客户端，究竟应该是怎样的呢？比如说，茶绘君是不是本身就应当写成网站，还是说写成软件，亦或者直接是智能手机App？</p>
+
+<p>在茶绘君之前，已经有一些茶绘网站以及另外一些可以用作茶绘的软件。所以我首先观察了这些现存者。</p>
+
+<p>茶绘本身是一个不断进行实时数据交互的过程，传统的网页技术当中，能够做到这一点的非常有限，因为网页服务器不可能主动向浏览器发送数据，所有的数据交互都是由浏览器主动发起，之后服务器在回复时交付结果。这是一种“拉模型”。早期的网页受网速、设备等等限制，就形成了现在这样的机制。如果采用这样的机制来构建茶绘，机器所要付出的成本是很高的，因为每次用户画一笔，浏览器都要向服务器发送数据，而浏览器还不得不频繁的从服务器上请求其它用户的绘画数据，所以浏览器压力大，服务器压力就更大了。网页技术所依赖的HTTP协议，本身是无状态的，所以来来回回有很多东西要重新建立，资源的消耗是很严重的。</p>
+
+<p>所以，茶绘的网站很多使用了Java Applet。JA是基于Java的技术，浏览器只不过为后台的Java提供了一个窗口，主要的逻辑和计算任务，甚至通信任务，都是由后台的Java虚拟机来进行。从结果上来看，这已经是比较理想的技术了。然而这有一些值得注意的问题。</p>
+
+<ul>
+<li><p>首先，用户不得不安装Java。一台典型的Windows系统计算机，并不默认安装Java，因此用户要使用JA技术支撑的茶绘，就必须手动地去安装Java。这是相当痛苦的一步。为一个软件安装一个平台，大部分人才不会去这么做。更痛苦的是，在这之后还要考虑更多情况，比如用户的Java版本不满足要求怎么办，比如JA在权限上有控制，而这可能限制到我们的程序，再比如用户的Java运行不正常，我们是不是还需要帮助用户来解决Java本身的问题。</p></li>
+<li><p>其次，Java本身就备受争议。Java在企业领域的口碑尚可，但在普通应用方面，还有不少争议，比如资源和能效，比如安全性。</p></li>
+</ul><p>和JA类似的还有Flash。Flash曾经是浏览器中的宠儿，其装机量也是相当大的。但也有一些问题，其中最主要的就是Flash的前景。Flash技术在桌面领域正逐渐被HTML5替代，而在移动领域甚至缺少立足之地。更何况Flash自己的漏洞多到数不清，我可不想纠缠这些。</p>
+
+<p>HTML5及其相关技术是一个非常朝阳的选择，HTML5中的Canvas，加上Websocket，基本上就已经是茶绘的全部了。但即便如此，还是需要进行一些考量。在我看来，这里有两个问题：</p>
+
+<ul>
+<li><p>HTML5的计算机覆盖面有限。HTML5在几年之内仍然是一种新技术，尤其是在国内。大家都知道还有很多用户用的是IE8甚至IE6来访问互联网，这是HTML5普及所遇到最大的阻力。现在浏览器市场本身也非常乱，作为一个小软件的提供者，我很难说服用户去使用某种浏览器。这个道理就和说服用户安装Java一样。</p></li>
+<li><p>HTML5的相关资源不足。HTML5已经提供了Canvas，而Websocket其实也已经比较成熟了。但原生的Canvas API是非常底层的，用它来为茶绘垫底，需要相当的工作量。除此之外，绘图板的压感也无法通过HTML5来获得。所以说HTML5富应用还是需要一段时间的。</p></li>
+</ul><p>不瞒大家，茶绘君的第一个原型就是基于HTML5的。我花了不到一周时间就实现了茶绘最基本的功能，也就是多人的聊天+绘图，但再继续下去，会需要大量的基础工作，而且无压感不幸福。</p>
+
+<p>手机App就更不必说了，能做的事情更加有限，连资源的使用也变得捉襟见肘。不过，在平板上我看到了市场，但我并没有iPad，残念。</p>
+
+<p>最后我决定茶绘君首先应当是一个客户端软件，而不是网站。网页版本的茶绘君可以有，但那是后期的事情。网页版本的茶绘君看起来很酷，但我很难为其做出更多的功能来。</p>
+
+<p>一旦确定茶绘君是一个软件，剩下的事情就简单多了。</p>
+
+<p>为了让茶绘君跨平台，我选择了Qt。我使用Qt有几年的时间，对Qt所能做的事情非常清楚。GTK和wxWidget本来也是不错的选择，但一来我不熟悉，二来Qt已经开始向移动领域发展，这一点是个诱惑。</p>
+
+<p>其实我原本想用Python + Qt的形式来实现，但考虑到效率对于绘图来说至关重要，我还是决定用C++来写。</p>
+
+<p>这就是整个关于客户端的选择过程。其中还是有一些个人色彩的。但看在我是作者的份上，还是不要追究了吧，哈哈。</p>
+        </section>
+
+        <aside id="sidebar">
 
 
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>Projects by <a href="https://github.com/paintty-project">paintty-project</a> can be found on <a href="https://github.com/paintty-project">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    
+  
   </body>
 </html>
